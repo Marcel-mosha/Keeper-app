@@ -3,7 +3,9 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const { Pool } = require("pg");
+const dotenv = require("dotenv");
 
+dotenv.config();
 const app = express();
 const port = process.env.PORT;
 
@@ -13,11 +15,11 @@ app.use(bodyParser.json());
 
 // PostgreSQL Connection
 const pool = new Pool({
-  user: "your_username",
-  host: "localhost",
-  database: "your_database",
-  password: "your_password",
-  port: 5432,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
 });
 
 // Routes
