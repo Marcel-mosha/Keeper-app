@@ -47,6 +47,38 @@ app.post("/notes", async (req, res) => {
   }
 });
 
+app.patch("/notes/:id", async (req, res) => {
+  const { id } = req.params;
+  const { title, content } = req.body;
+
+  try {
+    // Build the update query dynamically based on what's provided
+    let query = "UPDATE notes SET";
+    const values = [];
+    let paramCount = 1;
+
+    if (title !== undefined) {
+      query += ` title = $${paramCount++}`;
+      values.push(title);
+    }
+
+    if (content !== undefined) {
+      if (values.length > 0) query += ",";
+      query += ` content = $${paramCount++}`;
+      values.push(content);
+    }
+
+    query += ` WHERE id = $${paramCount} RETURNING *`;
+    values.push(id);
+
+    const result = await pool.query(query, values);
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  }
+});
+
 app.delete("/notes/:id", async (req, res) => {
   const { id } = req.params;
   try {

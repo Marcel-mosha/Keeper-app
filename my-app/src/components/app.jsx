@@ -25,7 +25,19 @@ function App() {
       .then((response) => setNotes([...notes, response.data]))
       .catch((error) => console.error("Error adding note:", error));
   }
-
+function editNote(updatedNote) {
+  axios
+    .patch(`${API_URL}/${updatedNote.id}`, {
+      title: updatedNote.title,
+      content: updatedNote.content,
+    })
+    .then(() => {
+      setNotes(
+        notes.map((note) => (note.id === updatedNote.id ? updatedNote : note))
+      );
+    })
+    .catch((error) => console.error("Error updating note:", error));
+}
   // Delete note
   function deleteNote(id) {
     axios
@@ -44,10 +56,11 @@ function App() {
             return (
               <Note
                 key={index}
-                id={index}
+                id={noteItem.id}
                 title={noteItem.title}
                 content={noteItem.content}
                 onDelete={deleteNote}
+                onEdit={editNote}
               />
             );
           })}
