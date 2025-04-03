@@ -35,18 +35,24 @@ function App() {
   }
 
   return (
-    <div>
+    <div className="app-container">
       <Header />
-      <CreateArea onAdd={addNote} />
-      {notes.map((note) => (
-        <Note
-          key={note.id}
-          id={note.id}
-          title={note.title}
-          content={note.content}
-          onDelete={deleteNote}
-        />
-      ))}
+      <div className="content-wrap">
+        <CreateArea onAdd={addNote} />
+        <div className="notes-container">
+          {notes.map((noteItem, index) => {
+            return (
+              <Note
+                key={index}
+                id={index}
+                title={noteItem.title}
+                content={noteItem.content}
+                onDelete={deleteNote}
+              />
+            );
+          })}
+        </div>
+      </div>
       <Footer />
     </div>
   );
