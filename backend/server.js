@@ -8,10 +8,17 @@ const dotenv = require("dotenv");
 dotenv.config();
 const app = express();
 const port = process.env.PORT;
+const MY_LOCAL_IP = process.env.MY_LOCAL_IP;
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
+
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "http://192.168.1.164:3000"],
+  })
+);
 
 // PostgreSQL Connection
 const pool = new Pool({
@@ -90,6 +97,7 @@ app.delete("/notes/:id", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+
+app.listen(port, "0.0.0.0", () => {
+  console.log(`Server running on http://${MY_LOCAL_IP}:${port}`);
 });

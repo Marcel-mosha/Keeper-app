@@ -33,10 +33,10 @@ function Note(props) {
   };
 
   return (
-    <div className="note" style={{ width: "240px", height: "240px" }}>
+    <div className="note">
       {isEditing ? (
-        <>
-          <Box sx={{ mb: 2 }}>
+        <div>
+          <div className="edit-mode">
             <TextField
               fullWidth
               variant="outlined"
@@ -49,11 +49,19 @@ function Note(props) {
               fullWidth
               variant="outlined"
               multiline
-              rows={3}
+              rows={4}
+              className="multiline"
               value={editedContent}
               onChange={(e) => setEditedContent(e.target.value)}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  height: "100%",
+                  alignItems: "flex-start",
+                },
+              }}
             />
-          </Box>
+          </div>
+
           <div className="note-footer">
             <IconButton
               onClick={handleCancelClick}
@@ -70,12 +78,14 @@ function Note(props) {
               <SaveIcon />
             </IconButton>
           </div>
-        </>
+        </div>
       ) : (
         <>
-          <div className="note-content">
-            <h1>{props.title}</h1>
-            <p>{props.content}</p>
+          <div className="note-header">
+            <h1 className="note-title">{props.title}</h1>
+          </div>
+          <div className="note-content-container">
+            <p className="note-content">{props.content}</p>
           </div>
           <div className="note-footer">
             <IconButton

@@ -5,7 +5,7 @@ import Footer from "./footer";
 import Note from "./Note";
 import CreateArea from "./CreateArea";
 
-const API_URL = "http://localhost:5000/notes";
+const API_URL = "http://192.168.1.164:5000/notes";
 
 function App() {
   const [notes, setNotes] = useState([]);
