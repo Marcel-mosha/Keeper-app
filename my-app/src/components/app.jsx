@@ -51,7 +51,7 @@ function editNote(updatedNote) {
       <Header />
       <div className="content-wrap">
         <CreateArea onAdd={addNote} />
-        <div className="notes-container">
+        <div className="notes-grid">
           {notes.map((noteItem, index) => {
             return (
               <Note

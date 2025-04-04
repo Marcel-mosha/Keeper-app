@@ -33,7 +33,7 @@ function Note(props) {
   };
 
   return (
-    <div className="note">
+    <div className="note" style={{ width: "240px", height: "240px" }}>
       {isEditing ? (
         <>
           <Box sx={{ mb: 2 }}>

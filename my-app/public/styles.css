@@ -1,154 +1,229 @@
+/* ================ */
+/* BASE STYLES */
+/* ================ */
+:root {
+  --primary-color: #3828c4;
+  --secondary-color: #2819a8;
+  --text-color: #333;
+  --light-text: #ccc;
+  --white: #fff;
+  --shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  --border-radius: 7px;
+}
+
 * {
+  box-sizing: border-box;
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
 }
 
 html {
   font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
   background: #eee;
-  padding: 0 16px;
+  min-height: 100vh;
+  line-height: 1.5;
 }
 
-header {
-  background-color: #3828c4;
-  margin: auto -16px;
-  padding: 16px 32px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-}
-
-header h1 {
-  color: #fff;
-  font-family: "McLaren", cursive;
-  font-weight: 200;
-}
-
-footer {
-  position: relative;
-  text-align: center;
-  bottom: 0;
-  width: 100%;
-  height: 2.5rem;
-  margin-top: auto;
-}
-
-footer p {
-  color: #ccc;
-}
-
-.note {
-  background: #ffffff;
-  border-radius: 7px;
-  box-shadow: 0 2px 5px #ccc;
-  padding: 10px;
-  width: 240px;
-  margin: 16px;
-  display: flex;
-  flex-direction: column;
-  min-height: 150px; /* Set a minimum height */
-  position: relative; /* For absolute positioning of footer */
-}
-
-.note h1 {
-  font-size: 1.1em;
-  margin-bottom: 6px;
-  word-break: break-word; /* Prevent long words from overflowing */
-}
-
-.note p {
-  font-size: 1em;
-  margin-bottom: 10px;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  max-height: 100px; /* Limit height with scroll if needed */
-  overflow-y: auto; /* Add scroll if content exceeds max-height */
-}
-
-/* .note button {
-  position: relative;
-  float: right;
-  margin-right: 10px;
-  color: #3828c4;
-  border: none;
-  width: 36px;
-  height: 36px;
-  cursor: pointer;
-  outline: none;
-} */
-
-form.create-note {
-  position: relative;
-  width: 480px;
-  margin: 30px auto 20px auto;
-  background: #fff;
-  padding: 15px;
-  border-radius: 7px;
-  box-shadow: 0 1px 5px rgb(138, 137, 137);
-}
-
-form.create-note input,
-form.create-note textarea {
-  width: 100%;
-  border: none;
-  padding: 4px;
-  outline: none;
-  font-size: 1.2em;
-  font-family: inherit;
-  resize: none;
-}
-
-form.create-note button {
-  position: absolute;
-  right: 18px;
-  bottom: -18px;
-  background: #3828c4;
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-  outline: none;
-}
+/* ================ */
+/* LAYOUT STRUCTURE */
+/* ================ */
 .app-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  width: 100%;
 }
 
 .content-wrap {
   flex: 1;
-  padding-bottom: 2.5rem; /* Same as footer height */
+  width: 100%;
+  padding: 1rem;
+  margin: 0 auto;
 }
 
-.notes-container {
+/* ================ */
+/* HEADER STYLES */
+/* ================ */
+header {
+  background-color: var(--primary-color);
+  padding: 1rem;
+  box-shadow: var(--shadow);
+  width: 100%;
+}
+
+header h1 {
+  color: var(--white);
+  font-family: "McLaren", cursive;
+  font-weight: 200;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  text-align: center;
+}
+
+/* ================ */
+/* NOTES GRID */
+/* ================ */
+.notes-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  width: 100%;
+  margin: 1rem auto;
+  padding: 0.5rem;
+}
+
+.note {
+  background: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 1rem;
+  width: 100%;
+  height: 240px;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
+  margin: 0 auto;
 }
+
 .note-content {
-  flex: 1; /* Takes remaining space */
-  overflow: hidden; /* Prevents content from overflowing */
+  flex: 1;
+  overflow: hidden;
 }
+
+.note h1 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  word-break: break-word;
+  color: var(--text-color);
+}
+
+.note p {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: var(--text-color);
+}
+
+/* ================ */
+/* CREATE NOTE FORM */
+/* ================ */
+.create-note {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: 1.5rem auto;
+  background: var(--white);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.create-note .MuiTextField-root {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.create-note .MuiOutlinedInput-root {
+  background: var(--white);
+}
+
+.create-note .MuiOutlinedInput-input {
+  padding: 0.75rem;
+}
+
+/* ================ */
+/* NOTE FOOTER (ACTIONS) */
+/* ================ */
 .note-footer {
   display: flex;
-  justify-content: space-between; /* Align to right */
-  padding-top: 8px;
+  justify-content: space-between;
+  padding-top: 0.5rem;
   border-top: 1px solid #eee;
-  margin-top: auto; /* Push to bottom */
-}
-.note .MuiTextField-root {
-  margin-bottom: 8px;
+  margin-top: auto;
 }
 
-.note .MuiOutlinedInput-root {
-  background-color: white;
+/* ================ */
+/* EDIT MODE STYLES */
+/* ================ */
+.note .MuiTextField-root {
+  margin-bottom: 0.5rem;
 }
 
 .note .MuiOutlinedInput-input {
-  padding: 8px;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* ================ */
+/* FOOTER STYLES */
+/* ================ */
+footer {
+  text-align: center;
+  width: 100%;
+  padding: 1rem;
+}
+
+footer p {
+  color: var(--light-text);
+  font-size: 0.9rem;
+}
+
+/* ================ */
+/* RESPONSIVE BREAKPOINTS */
+/* ================ */
+@media (min-width: 600px) {
+  .notes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .note {
+    max-width: 280px;
+  }
+}
+
+@media (min-width: 768px) {
+  .content-wrap {
+    padding: 1.5rem;
+  }
+  
+  .notes-grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1200px;
+  }
+  
+  .note {
+    max-width: 240px;
+  }
+  
+  .create-note {
+    padding: 1.25rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .notes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+}
+
+/* ================ */
+/* UTILITY CLASSES */
+/* ================ */
+.hidden-mobile {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .hidden-mobile {
+    display: block;
+  }
+  
+  .hidden-desktop {
+    display: none;
+  }
 }
